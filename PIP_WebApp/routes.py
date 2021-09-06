@@ -65,8 +65,8 @@ def edit_student(student_id):
     return redirect(url_for('students'))
 
 
-@app.route('/delete/<int:student_id>', methods=['GET', 'POST'])
-def delete(student_id):
+@app.route('/delete_student/<int:student_id>', methods=['GET', 'POST'])
+def delete_student(student_id):
     form = forms.DeleteTaskForm()
     student = models.Student.query.get(student_id)
     if student:
@@ -76,7 +76,7 @@ def delete(student_id):
                 db.session.commit()
                 flash('Student deleted')
             return redirect(url_for('students'))
-        return render_template('delete.html', form=form, student_id=student_id, name=student.name, surname=student.surname)
+        return render_template('delete_student.html', form=form, student_id=student_id, name=student.name, surname=student.surname)
     flash(f'Student with id {student_id} does not exit')
     return redirect(url_for('students'))
 

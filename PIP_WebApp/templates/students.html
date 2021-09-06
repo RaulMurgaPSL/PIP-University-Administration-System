@@ -8,7 +8,7 @@
         <h5>{{ student.college}}: {{student.faculty}}</h5>
         <p>Added on {{ student.created_at }}</p>
         <a href="{{ url_for('edit_student', student_id=student.id) }}" class="btn btn-primary">Edit</a>
-        <a href="{{ url_for('delete', student_id=student.id) }}" class="btn btn-danger">Delete</a>
+        <a href="{{ url_for('delete_student', student_id=student.id) }}" class="btn btn-danger">Delete</a>
       </div>
     </div>
   {% endfor %}

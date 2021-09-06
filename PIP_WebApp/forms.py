@@ -18,6 +18,7 @@ class AddStudentForm(FlaskForm):
     faculty = StringField('Faculty', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+
 class AddUniversityForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     acronym = StringField('Acronym', validators=[DataRequired()])
