@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 
-class DeleteTaskForm(FlaskForm):
+class DeleteForm(FlaskForm):
     submit = SubmitField('Delete')
 
 

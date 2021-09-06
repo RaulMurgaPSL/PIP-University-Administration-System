@@ -86,7 +86,7 @@ def delete_student(student_id):
 @app.route('/universities')
 def universities():
     universities = models.University.query.all()
-    return render_template('university.html', universities=universities)
+    return render_template('universities.html', universities=universities)
 
 
 @app.route('/adduniversity', methods=['GET', 'POST'])
@@ -127,5 +127,21 @@ def edit_university(university_id):
         form. address.data = university.address
         form.location.data = university.location
         return render_template('edit_university.html', form=form, university_id=university_id)
+    flash(f'University with id {university_id} does not exit')
+    return redirect(url_for('universities'))
+
+
+@app.route('/delete_university/<int:university_id>', methods=['GET', 'POST'])
+def delete_university(university_id):
+    form = forms.DeleteForm()
+    university = models.University.query.get(university_id)
+    if university:
+        if form.validate_on_submit():
+            if form.submit.data:
+                db.session.delete(university)
+                db.session.commit()
+                flash('University deleted')
+            return redirect(url_for('universities'))
+        return render_template('delete_university.html', form=form, university_id=university_id, acronym=university.acronym)
     flash(f'University with id {university_id} does not exit')
     return redirect(url_for('universities'))
