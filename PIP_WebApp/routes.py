@@ -145,3 +145,29 @@ def delete_university(university_id):
         return render_template('delete_university.html', form=form, university_id=university_id, acronym=university.acronym)
     flash(f'University with id {university_id} does not exit')
     return redirect(url_for('universities'))
+
+
+# *********************************************************** Colleges ****************************************************************
+@app.route('/colleges')
+def colleges():
+    colleges = models.College.query.all()
+    return render_template('colleges.html', colleges=colleges)
+
+
+@app.route('/addcollege', methods=['GET', 'POST'])
+def addcollege():
+    form = forms.AddCollegeForm()
+    if form.validate_on_submit():
+        college = models.College(name=form.name.data, 
+                                acronym=form.acronym.data, 
+                                created_at=datetime.utcnow(),
+                                address=form.address.data,
+                                location=form.location.data, 
+                                University=form.university.data
+                                )
+        db.session.add(college)
+        db.session.commit()
+        flash('College added')
+        return redirect(url_for('colleges'))
+    return render_template('addcollege.html', form=form)
+

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container-fluid">
+  <form action="{{ url_for('addcollege') }}" method="post">
+    {{ form.csrf_token }}
+    <div class="row">
+      <h3>Add College</h3>
+      <div class="col">
+        {{ form.submit(class="btn btn-primary") }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5> Name </h5>
+        {{ form.name(class="form-control") }}
+      </div>
+      <div class="col">
+        <h5> Acronym </h5>
+        {{ form.acronym(class="form-control") }}
+      </div>
+      <div class="col">
+        <h5> University </h5>
+        {{ form.university(class="form-control") }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5> Location </h5>
+        {{ form.location(class="form-control") }}
+      </div>
+      <div class="col">
+        <h5> Address </h5>
+        {{ form.address(class="form-control") }}
+      </div>
+    </div> 
+  </form>
+</div>
+{% endblock %}

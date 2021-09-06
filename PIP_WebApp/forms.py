@@ -25,3 +25,12 @@ class AddUniversityForm(FlaskForm):
     address = StringField('Address', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class AddCollegeForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    acronym = StringField('Acronym', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    location = StringField('Location', validators=[DataRequired()])
+    university = StringField('University', validators=[DataRequired()])
+    submit = SubmitField('Submit')

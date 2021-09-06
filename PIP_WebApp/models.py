@@ -17,11 +17,17 @@ class University(db.Model):
 
 class College(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.Date, nullable = False)
     name = db.Column(db.String(255))
     location = db.Column(db.String(255))
-    # univeristy realion many2one
+    acronym = db.Column(db.String(255))
+    address = db.Column(db.String(255))
+    university = db.Column(db.String(255))
     # streams relation one2many
     # students relation one2many
+    
+    def __repr__(self):
+        return f'{self.name} {self.university}: {self.id}'
 
 
 class Student(db.Model):
