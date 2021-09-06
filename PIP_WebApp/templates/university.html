@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block main %}
+  {% for university in universities %}
+    <div class="card">
+      <div class="card-body">
+        <h3>{{ university.name}} </h3>
+        <p>Added on {{ university.created_at }}</p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
