@@ -33,8 +33,8 @@ def addstudent():
     return render_template('addstudent.html', form=form)
 
 
-@app.route('/edit/<int:student_id>', methods=['GET', 'POST'])
-def edit(student_id):
+@app.route('/edit_student/<int:student_id>', methods=['GET', 'POST'])
+def edit_student(student_id):
     form = forms.AddStudentForm()
     student = models.Student.query.get(student_id)
     print(student)
@@ -60,7 +60,7 @@ def edit(student_id):
         form.std_code.data = student.std_code
         form.college.data = student.college
         form.faculty.data = student.faculty
-        return render_template('edit.html', form=form, student_id=student_id)
+        return render_template('edit_student.html', form=form, student_id=student_id)
     flash(f'Student with id {student_id} does not exit')
     return redirect(url_for('students'))
 
@@ -79,3 +79,26 @@ def delete(student_id):
         return render_template('delete.html', form=form, student_id=student_id, name=student.name, surname=student.surname)
     flash(f'Student with id {student_id} does not exit')
     return redirect(url_for('students'))
+
+
+@app.route('/universities')
+def universities():
+    universities = models.University.query.all()
+    return render_template('university.html', universities=universities)
+
+
+@app.route('/adduniversity', methods=['GET', 'POST'])
+def adduniversity():
+    form = forms.AddUniversityForm()
+    if form.validate_on_submit():
+        university = models.University(name=form.name.data, 
+                                acronym=form.acronym.data, 
+                                created_at=datetime.utcnow(),
+                                address=form.address.data,
+                                location=form.location.data, 
+                                )
+        db.session.add(university)
+        db.session.commit()
+        flash('University added')
+        return redirect(url_for('universities'))
+    return render_template('adduniversity.html', form=form)

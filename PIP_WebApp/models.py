@@ -3,10 +3,16 @@ from app import db
 
 class University(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.Date, nullable = False)
     name = db.Column(db.String(255))
     location = db.Column(db.String(255))
+    acronym = db.Column(db.String(255))
+    address = db.Column(db.String(255))
     # streams relation one2many
     # colleges relation one2many
+
+    def __repr__(self):
+        return f'{self.name} {self.location}: {self.id}'
 
 
 class College(db.Model):
@@ -27,7 +33,7 @@ class Student(db.Model):
     stream = db.Column(db.String(255), nullable=False)
     phone_no = db.Column(db.String(10))
     std_code = db.Column(db.String(4))
-    #marksheet_id = db.Column(db.Integer, nullable=False)
+    #marksheet_id = db.Column(db.Integer, nullable=False) Foreign key
     college = db.Column(db.String(255), nullable = False)
     faculty = db.Column(db.String(255), nullable = False)
 
@@ -37,6 +43,8 @@ class Student(db.Model):
 
 class Marksheet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    # student_id(foreign_key)
     # courses relation one2many
     gpa = db.Column(db.Float)
     result = db.Column(db.String(24)) # Pass or Fail
+    
