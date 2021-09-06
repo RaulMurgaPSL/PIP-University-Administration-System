@@ -6,6 +6,7 @@
       <div class="card-body">
         <h3>{{ university.name}} </h3>
         <p>Added on {{ university.created_at }}</p>
+        <a href="{{ url_for('edit_university', university_id=university.id) }}" class="btn btn-primary">Edit</a>
       </div>
     </div>
   {% endfor %}
