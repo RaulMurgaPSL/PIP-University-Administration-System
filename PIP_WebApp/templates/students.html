@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block main %}
+  {% for student in students %}
+    <div class="card">
+      <div class="card-body">
+        <h3>{{ student.name}} {{student.surname}}</h3>
+        <h5>{{ student.college}}: {{student.faculty}}</h5>
+        <p>Added on {{ student.created_at }}</p>
+        <a href="{{ url_for('edit', student_id=student.id) }}" class="btn btn-primary">Edit</a>
+        <a href="{{ url_for('delete', student_id=student.id) }}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,19 @@
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
+
+class DeleteTaskForm(FlaskForm):
+    submit = SubmitField('Delete')
+
+
+class AddStudentForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    surname = StringField('Surname', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    stream = StringField('Stream', validators=[DataRequired()])
+    phone_no = StringField('Phone Number', validators=[DataRequired()])
+    std_code = StringField('Std Code', validators=[DataRequired()])
+    college = StringField('College', validators=[DataRequired()])
+    faculty = StringField('Faculty', validators=[DataRequired()])
+    submit = SubmitField('Submit')
