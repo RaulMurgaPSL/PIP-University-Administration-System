@@ -31,7 +31,7 @@ def addstudent():
         db.session.commit()
         flash('Student added')
         return redirect(url_for('students'))
-    return render_template('addstudent.html', form=form)
+    return render_template('add/addstudent.html', form=form)
 
 
 @app.route('/edit_student/<int:student_id>', methods=['GET', 'POST'])
@@ -61,7 +61,7 @@ def edit_student(student_id):
         form.std_code.data = student.std_code
         form.college.data = student.college
         form.faculty.data = student.faculty
-        return render_template('edit_student.html', form=form, student_id=student_id)
+        return render_template('edit/edit_student.html', form=form, student_id=student_id)
     flash(f'Student with id {student_id} does not exit')
     return redirect(url_for('students'))
 
@@ -77,7 +77,7 @@ def delete_student(student_id):
                 db.session.commit()
                 flash('Student deleted')
             return redirect(url_for('students'))
-        return render_template('delete_student.html', form=form, student_id=student_id, name=student.name, surname=student.surname)
+        return render_template('delete/delete_student.html', form=form, student_id=student_id, name=student.name, surname=student.surname)
     flash(f'Student with id {student_id} does not exit')
     return redirect(url_for('students'))
 
@@ -103,7 +103,7 @@ def adduniversity():
         db.session.commit()
         flash('University added')
         return redirect(url_for('universities'))
-    return render_template('adduniversity.html', form=form)
+    return render_template('add/adduniversity.html', form=form)
 
 
 @app.route('/edit_university/<int:university_id>', methods=['GET', 'POST'])
@@ -126,7 +126,7 @@ def edit_university(university_id):
         form.acronym.data = university.acronym
         form. address.data = university.address
         form.location.data = university.location
-        return render_template('edit_university.html', form=form, university_id=university_id)
+        return render_template('edit/edit_university.html', form=form, university_id=university_id)
     flash(f'University with id {university_id} does not exit')
     return redirect(url_for('universities'))
 
@@ -142,7 +142,7 @@ def delete_university(university_id):
                 db.session.commit()
                 flash('University deleted')
             return redirect(url_for('universities'))
-        return render_template('delete_university.html', form=form, university_id=university_id, acronym=university.acronym)
+        return render_template('delete/delete_university.html', form=form, university_id=university_id, acronym=university.acronym)
     flash(f'University with id {university_id} does not exit')
     return redirect(url_for('universities'))
 
@@ -163,11 +163,63 @@ def addcollege():
                                 created_at=datetime.utcnow(),
                                 address=form.address.data,
                                 location=form.location.data, 
-                                University=form.university.data
+                                university=form.university.data
                                 )
         db.session.add(college)
         db.session.commit()
         flash('College added')
         return redirect(url_for('colleges'))
-    return render_template('addcollege.html', form=form)
+    return render_template('add/addcollege.html', form=form)
+
+
+
+@app.route('/edit_college/<int:college_id>', methods=['GET', 'POST'])
+def edit_college(college_id):
+    form = forms.AddCollegeForm()
+    college = models.College.query.get(college_id)
+    print(college)
+    if college:
+        if form.validate_on_submit():
+            college.name = form.name.data
+            college.acronym = form.acronym.data
+            college.date = datetime.utcnow()
+            college.address = form. address.data
+            college.location = form.location.data
+            college.university = form.university.data
+
+            db.session.commit()
+            flash('College updated')
+            return redirect(url_for('colleges'))
+        form.name.data = college.name
+        form.acronym.data = college.acronym
+        form.university.data = college.university
+        form.address.data = college.address
+        form.location.data = college.location
+        return render_template('edit/edit_college.html', form=form, college_id=college_id)
+    flash(f'College with id {college_id} does not exit')
+    return redirect(url_for('colleges'))
+
+
+@app.route('/delete_college/<int:college_id>', methods=['GET', 'POST'])
+def delete_college(college_id):
+    form = forms.DeleteForm()
+    college = models.College.query.get(college_id)
+    if college:
+        if form.validate_on_submit():
+            if form.submit.data:
+                db.session.delete(college)
+                db.session.commit()
+                flash('College deleted')
+            return redirect(url_for('colleges'))
+        return render_template('delete/delete_college.html', form=form, college_id=college_id, acronym=college.acronym)
+    flash(f'College with id {college_id} does not exit')
+    return redirect(url_for('colleges'))
+
+
+# *********************************************************** MarkSheet ****************************************************************
+@app.route('/marksheets')
+def marksheets():
+    marksheets = models.Marksheet.query.all()
+    return render_template('marksheets.html', marksheets=marksheets)
+
 

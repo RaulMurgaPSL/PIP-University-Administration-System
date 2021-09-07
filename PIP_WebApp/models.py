@@ -49,8 +49,22 @@ class Student(db.Model):
 
 class Marksheet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # student_id(foreign_key)
-    # courses relation one2many
+    student_name = db.Column(db.String(255))
+    student_surname = db.Column(db.String(255))
     gpa = db.Column(db.Float)
     result = db.Column(db.String(24)) # Pass or Fail
-    
+    semester = db.Column(db.Integer)
+    # student_id (foreign key)
+
+
+class Stream(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    # college_id foregin key
+
+
+class Course(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    grade = db.Column(db.Float)
+    # marksheet_id foregin key
