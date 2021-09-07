@@ -68,7 +68,7 @@ def edit_student(student_id):
 
 @app.route('/delete_student/<int:student_id>', methods=['GET', 'POST'])
 def delete_student(student_id):
-    form = forms.DeleteTaskForm()
+    form = forms.DeleteForm()
     student = models.Student.query.get(student_id)
     if student:
         if form.validate_on_submit():

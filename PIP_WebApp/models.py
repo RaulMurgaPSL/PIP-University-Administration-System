@@ -73,11 +73,10 @@ class Marksheet(db.Model):
     student_name = db.Column(db.String(255))
     student_surname = db.Column(db.String(255))
     gpa = db.Column(db.Float)
-    result = db.Column(db.String(24)) # Pass or Fail
     semester = db.Column(db.Integer)
-    #courses = db.relationship('courses', backref=db.backref("marksheet"))
-    #student = db.relationship('Student', backref=db.backref("marksheet"))
-    #student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
+    # courses = db.relationship('courses', backref=db.backref("marksheet"))
+    # student = db.relationship('Student', backref=db.backref("marksheet"))
+    # student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
 
     def __repr__(self):
         return f'{self.student_name} {self.student_surname}: {self.id}'
@@ -87,7 +86,8 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     grade = db.Column(db.Float)
-    #marksheet_id = db.Column(db.Integer, db.ForeignKey("marksheet.id"))
+    result = db.Column(db.String(24)) # Pass or Fail
+    # marksheet_id = db.Column(db.Integer, db.ForeignKey("marksheet.id"))
 
     def __repr__(self):
         return f'{self.name}: {self.id}'
