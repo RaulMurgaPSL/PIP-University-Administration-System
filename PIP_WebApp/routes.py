@@ -25,7 +25,7 @@ def addstudent():
                                 phone_no=form.phone_no.data,
                                 std_code=form.std_code.data,
                                 college=form.college.data,
-                                faculty=form.faculty.data,
+                                university=form.university.data,
                                 )
         db.session.add(student)
         db.session.commit()
@@ -49,7 +49,7 @@ def edit_student(student_id):
             student.phone_n = form.phone_no.data
             student.std_code = form.std_code.data
             student.college = form.college.data
-            student.faculty = form.faculty.data
+            student.university = form.university.data
             db.session.commit()
             flash('Student updated')
             return redirect(url_for('students'))
@@ -60,7 +60,7 @@ def edit_student(student_id):
         form.phone_no.data = student.phone_no
         form.std_code.data = student.std_code
         form.college.data = student.college
-        form.faculty.data = student.faculty
+        form.university.data = student.university
         return render_template('edit/edit_student.html', form=form, student_id=student_id)
     flash(f'Student with id {student_id} does not exit')
     return redirect(url_for('students'))

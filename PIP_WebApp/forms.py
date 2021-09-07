@@ -15,7 +15,7 @@ class AddStudentForm(FlaskForm):
     phone_no = StringField('Phone Number', validators=[DataRequired()])
     std_code = StringField('Std Code', validators=[DataRequired()])
     college = StringField('College', validators=[DataRequired()])
-    faculty = StringField('Faculty', validators=[DataRequired()])
+    university = StringField('University', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
