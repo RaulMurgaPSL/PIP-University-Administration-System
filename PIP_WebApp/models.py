@@ -8,8 +8,9 @@ class University(db.Model):
     location = db.Column(db.String(255))
     acronym = db.Column(db.String(255))
     address = db.Column(db.String(255))
-    # streams relation one2many
-    # colleges relation one2many
+    #colleges = db.relationship('College', backref=db.backref("university"))
+    #streams = db.relationship("Stream", backref=db.backref("university"))
+    #students = db.relationship('Student', backref=db.backref("university"))
 
     def __repr__(self):
         return f'{self.name} {self.location}: {self.id}'
@@ -22,12 +23,24 @@ class College(db.Model):
     location = db.Column(db.String(255))
     acronym = db.Column(db.String(255))
     address = db.Column(db.String(255))
-    university = db.Column(db.String(255))
-    # streams relation one2many
-    # students relation one2many
+    #university_id = db.Column(db.String(255),  db.ForeignKey("university.id"))
+    #students = db.relationship('Student', backref=db.backref("college"))
+    #streams = db.relationship("Stream", backref=db.backref("college"))
     
     def __repr__(self):
         return f'{self.name} {self.university}: {self.id}'
+
+
+class Stream(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    #college_id = db.Column(db.String(255),  db.ForeignKey("college.id"))
+    #university_id = db.Column(db.String(255),  db.ForeignKey("university.id"))
+    #students = db.relationship('Student', backref=db.backref("stream"))
+    #courses = db.relationship('Course', backref=db.backref("stream"))
+
+    def __repr__(self):
+        return f'{self.name}: {self.id}'
 
 
 class Student(db.Model):
@@ -39,9 +52,17 @@ class Student(db.Model):
     stream = db.Column(db.String(255), nullable=False)
     phone_no = db.Column(db.String(10))
     std_code = db.Column(db.String(4))
-    #marksheet_id = db.Column(db.Integer, nullable=False) Foreign key
     college = db.Column(db.String(255), nullable = False)
     faculty = db.Column(db.String(255), nullable = False)
+    #marksheet = db.relationship('Marksheet', backref=db.backref("student"))
+    #marksheet_id = db.Column(db.Integer, db.ForeignKey("marksheet.id"))
+    #university_id = db.Column(db.String(255), db.ForeignKey("university.id"))
+    #college_id = db.Column(db.String(255),  db.ForeignKey("college.id"))
+    #stream_id = db.Column(db.String(255),  db.ForeignKey("stream.id"))
+
+    #courses = db.relationship('Course', backref=db.backref("student"))
+    
+
 
     def __repr__(self):
         return f'{self.name} {self.surname}: {self.id}'
@@ -54,17 +75,19 @@ class Marksheet(db.Model):
     gpa = db.Column(db.Float)
     result = db.Column(db.String(24)) # Pass or Fail
     semester = db.Column(db.Integer)
-    # student_id (foreign key)
+    #courses = db.relationship('courses', backref=db.backref("marksheet"))
+    #student = db.relationship('Student', backref=db.backref("marksheet"))
+    #student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
 
-
-class Stream(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
-    # college_id foregin key
+    def __repr__(self):
+        return f'{self.student_name} {self.student_surname}: {self.id}'
 
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     grade = db.Column(db.Float)
-    # marksheet_id foregin key
+    #marksheet_id = db.Column(db.Integer, db.ForeignKey("marksheet.id"))
+
+    def __repr__(self):
+        return f'{self.name}: {self.id}'
