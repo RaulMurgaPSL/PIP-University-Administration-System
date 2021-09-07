@@ -8,4 +8,4 @@
 
 ## [PIP-Backlog.xlsx](PIP-Backlog.xlsx) is Microsoft ® Excel ™ file with the backlog of this project. Includes Estimated deadlines and the actual dates of completion. 
 
-## [Resources & Cheatsheets](resources & Cheatsheets/) if precisely a folder with some files with tip and tricks on Python, SQL, and more technologies. 
+## [Resources & Cheatsheets](Resources & Cheatsheets/) if precisely a folder with some files with tip and tricks on Python, SQL, and more technologies. 
