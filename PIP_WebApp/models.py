@@ -1,16 +1,46 @@
 from app import db
+# from sqlalchemy.ext.declarative import declarative_base as base
+# from sqlalchemy.orm import backref
+
+# base = base()
+
+
+# # Relationship Table Instance Uni with Colleges
+# university_college = db.Table(
+#     "university_college",
+#     base.metadata,
+#     db.Column("id", db.Integer, db.ForeignKey("university.id")),
+#     db.Column("id", db.Integer, db.ForeignKey("College.id")),
+# )
+
+# # Relationship Table Instance Uni with Streams
+# university_stream = db.Table(
+#     "university_stream",
+#     base.metadata,
+#     db.Column("id", db.Integer, db.ForeignKey("university.id")),
+#     db.Column("id", db.Integer, db.ForeignKey("Stream.id")),
+# )
+
+# # Relationship Table Instance Uni with Students
+# university_student = db.Table(
+#     "university_student",
+#     base.metadata,
+#     db.Column("id", db.Integer, db.ForeignKey("university.id")),
+#     db.Column("id", db.Integer, db.ForeignKey("Student.id")),
+# )
 
 
 class University(db.Model):
+    __tablename__ = "university"
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.Date, nullable = False)
     name = db.Column(db.String(255))
     location = db.Column(db.String(255))
     acronym = db.Column(db.String(255))
     address = db.Column(db.String(255))
-    colleges = db.relationship('College')# , backref=db.backref("University"))
-    streams = db.relationship("Stream")# , backref=db.backref("University"))
-    students = db.relationship('Student')# , backref=db.backref("University"))
+    colleges = db.relationship('College')# , secondary=university_college, backref=backref("University"))
+    streams = db.relationship("Stream")# , secondary=university_stream, backref=backref("University"))
+    students = db.relationship('Student')# , secondary=university_student, backref=backref("University"))
 
     def __repr__(self):
         return f'{self.name} {self.location}: {self.id}'
@@ -23,7 +53,7 @@ class College(db.Model):
     location = db.Column(db.String(255))
     acronym = db.Column(db.String(255))
     address = db.Column(db.String(255))
-    university_id = db.Column(db.String(255),  db.ForeignKey("university.id"))
+    university_id = db.Column(db.Integer,  db.ForeignKey("university.id"))
     university = db.Column(db.String(255))
     students = db.relationship('Student')# , backref=db.backref("College"))
     streams = db.relationship("Stream")# , backref=db.backref("College"))
@@ -35,8 +65,8 @@ class College(db.Model):
 class Stream(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
-    college_id = db.Column(db.String(255),  db.ForeignKey("college.id"))
-    university_id = db.Column(db.String(255),  db.ForeignKey("university.id"))
+    college_id = db.Column(db.Integer,  db.ForeignKey("college.id"))
+    university_id = db.Column(db.Integer,  db.ForeignKey("university.id"))
     students = db.relationship('Student')# , backref=db.backref("Stream"))
     courses = db.relationship('Course')# , backref=db.backref("Stream"))
 
@@ -56,9 +86,9 @@ class Student(db.Model):
     college = db.Column(db.String(255), nullable = False)
     university = db.Column(db.String(255), nullable = False)
     marksheets = db.relationship('Marksheet')# , backref=db.backref("Student"))
-    university_id = db.Column(db.String(255), db.ForeignKey("university.id"))
-    college_id = db.Column(db.String(255),  db.ForeignKey("college.id"))
-    stream_id = db.Column(db.String(255),  db.ForeignKey("stream.id"))
+    university_id = db.Column(db.Integer, db.ForeignKey("university.id"))
+    college_id = db.Column(db.Integer,  db.ForeignKey("college.id"))
+    stream_id = db.Column(db.Integer,  db.ForeignKey("stream.id"))
 
     def __repr__(self):
         return f'{self.name} {self.surname}: {self.id}'
