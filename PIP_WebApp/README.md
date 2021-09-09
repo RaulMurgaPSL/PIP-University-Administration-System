@@ -4,7 +4,7 @@
 
 ## Requirements:
 
-### Pyhton 3.7+
+### Python 3.7+
 ### Flask 1.1.2
 ### SQLAlchemy 1.4.7
 
