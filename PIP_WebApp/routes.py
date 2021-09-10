@@ -1,7 +1,5 @@
-from PIP_WebApp.models import Stream
 from app import app, db
-from flask import render_template, url_for, flash, get_flashed_messages, redirect, request
-from datetime import datetime
+from flask import render_template, url_for, flash, redirect
 
 import models
 import forms
@@ -286,12 +284,13 @@ def addstudent():
         student = models.Student(name=form.name.data, 
                                 surname=form.surname.data,
                                 address=form.address.data,
-                                stream=form.stream.data,
                                 phone_no=form.phone_no.data,
                                 std_code=form.std_code.data,
+                                stream=form.stream.data,
                                 college=form.college.data,
                                 university=form.university.data,
                                 )
+# add code to determine college, university and stream ids
         db.session.add(student)
         db.session.commit()
         flash('Student added')
