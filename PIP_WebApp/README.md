@@ -16,9 +16,4 @@
 
 ## [forms](formes.py) contains the connection layouts for user's inputs with the different parts of the app.
 
-## [students](students.db) hold the database structures and values. 
-
-
-
-
-
+## [Test](test.db) holds the database structures and values. 
