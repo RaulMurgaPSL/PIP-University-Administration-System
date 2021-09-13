@@ -7,18 +7,6 @@ class DeleteForm(FlaskForm):
     submit = SubmitField('Delete')
 
 
-class AddStudentForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    surname = StringField('Surname', validators=[DataRequired()])
-    address = StringField('Address', validators=[DataRequired()])
-    stream = StringField('Stream', validators=[DataRequired()])
-    phone_no = StringField('Phone Number', validators=[DataRequired()])
-    std_code = StringField('Std Code', validators=[DataRequired()])
-    college = StringField('College', validators=[DataRequired()])
-    university = StringField('University', validators=[DataRequired()])
-    submit = SubmitField('Submit')
-
-
 class AddUniversityForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     acronym = StringField('Acronym', validators=[DataRequired()])
@@ -32,5 +20,32 @@ class AddCollegeForm(FlaskForm):
     acronym = StringField('Acronym', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
+    university = StringField('University', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class AddStreamForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    college = StringField('College', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class AddCourseForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    grade = StringField('Grade', validators=[DataRequired()])
+    stream = StringField('Stream', validators=[DataRequired()])
+    college = StringField('College', validators=[DataRequired()])
+    student_id = StringField('Student_ID', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class AddStudentForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    surname = StringField('Surname', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    phone_no = StringField('Phone Number', validators=[DataRequired()])
+    std_code = StringField('Std Code', validators=[DataRequired()])
+    stream = StringField('Stream', validators=[DataRequired()])
+    college = StringField('College', validators=[DataRequired()])
     university = StringField('University', validators=[DataRequired()])
     submit = SubmitField('Submit')

@@ -6,6 +6,7 @@ import forms
 
 
 # *********************************************************** Universities ****************************************************************
+@app.route('/')
 @app.route('/universities')
 def universities():
     universities = models.University.query.all()
@@ -79,11 +80,13 @@ def colleges():
 def addcollege():
     form = forms.AddCollegeForm()
     if form.validate_on_submit():
+        university = db.session.query(models.University).filter(models.University.name == form.university.data)[0]
         college = models.College(name=form.name.data, 
                                 acronym=form.acronym.data, 
                                 address=form.address.data,
                                 location=form.location.data, 
-                                university=form.university.data
+                                university_id=university.id,
+                                university=university
                                 )
 # add code to determine university id
         db.session.add(college)
@@ -100,18 +103,20 @@ def edit_college(college_id):
     print(college)
     if college:
         if form.validate_on_submit():
+            university = db.session.query(models.University).filter(models.University.name == form.university.data)[0]
             college.name = form.name.data
             college.acronym = form.acronym.data
             college.address = form. address.data
             college.location = form.location.data
-            college.university = form.university.data
+            college.university = university
+            college.university_id = university.id
 
             db.session.commit()
             flash('College updated')
             return redirect(url_for('colleges'))
         form.name.data = college.name
         form.acronym.data = college.acronym
-        form.university.data = college.university
+        form.university.data = college.university.name
         form.address.data = college.address
         form.location.data = college.location
         return render_template('edit/edit_college.html', form=form, college_id=college_id)
@@ -146,8 +151,15 @@ def streams():
 def addstream():
     form = forms.AddStreamForm()
     if form.validate_on_submit():
+        college_id = db.session.query(models.College).filter(models.College.name == form.college.data)[0].id
+        college = college=db.session.query(models.College).filter(models.College.name == form.college.data)[0]
+        university_id=db.session.query(models.College).filter(models.College.id == college_id)[0].university_id
+        university=db.session.query(models.University).filter(models.University.id == university_id)[0]
         stream = models.Stream(name=form.name.data,
-                            college=form.college.data,
+                            college_id=college_id,
+                            college=college,
+                            university_id=university_id,
+                            university=university
                             )
 # add code to determine college and university id from college
         db.session.add(stream)
@@ -164,14 +176,22 @@ def edit_stream(stream_id):
     print(stream)
     if stream:
         if form.validate_on_submit():
+            college_id = db.session.query(models.College).filter(models.College.name == form.college.data)[0].id
+            college = db.session.query(models.College).filter(models.College.name == form.college.data)[0]
+            university_id = db.session.query(models.College).filter(models.College.id == college_id)[0].university_id
+            university = db.session.query(models.University).filter(models.University.id == university_id)[0]
             stream.name = form.name.data
-            stream.college = form.college.data
+            stream.college_id = college_id
+            stream.college = college
+            stream.university_id = university_id
+            stream.university = university
+
 # add code to determine college and university ids from college
             db.session.commit()
             flash('Stream updated')
             return redirect(url_for('streams'))
         form.name.data = stream.name
-        form.college.data = stream.college
+        form.college.data = stream.college.name
         return render_template('edit/edit_stream.html', form=form, stream_id=stream_id)
     flash(f'Stream with id {stream_id} does not exit')
     return redirect(url_for('streams'))
@@ -197,18 +217,30 @@ def delete_stream(stream_id):
 @app.route('/courses')
 def courses():
     courses = models.Course.query.all()
-    return render_template('Course.html', courses=courses)
+    return render_template('courses.html', courses=courses)
 
 
 @app.route('/addcourse', methods=['GET', 'POST'])
 def addcourse():
     form = forms.AddCourseForm()
     if form.validate_on_submit():
+        college = db.session.query(models.College).filter(models.College.name == form.college.data)[0]
+        college_id = college.id
+        university_id = db.session.query(models.College).filter(models.College.id == college_id)[0].university_id
+        university = db.session.query(models.University).filter(models.University.id == university_id)[0]
+        stream = db.session.query(models.Stream).filter(
+            models.Stream.name == form.stream.data and models.Stream.College_id==college_id)[0]
+        stream_id = stream.id
         course = models.Course(name = form.name.data,
+                            student_id = form.student_id.data,
                             grade = form.grade.data,
-                            stream = form.stream.data,
-                            college = form.college.data
-                            )
+                            university_id=university_id,
+                            college=college,
+                            college_id=college_id,
+                            stream=stream,
+                            stream_id=stream_id
+        )
+# add code to determine marksheet form student id                            )
 # add code to determine college, university and stream ids from college and stream
 # add code to determine result: pass or fail
         db.session.add(course)
@@ -225,19 +257,31 @@ def edit_course(course_id):
     print(course)
     if course:
         if form.validate_on_submit():
+            college = db.session.query(models.College).filter(models.College.name == form.college.data)[0]
+            college_id = college.id
+            university_id = db.session.query(models.College).filter(models.College.id == college_id)[0].university_id
+            university = db.session.query(models.University).filter(models.University.id == university_id)[0]
+            stream = db.session.query(models.Stream).filter(
+                models.Stream.name == form.stream.data and models.Stream.College_id==college_id)[0]
             course.name = form.name.data
-            course.grade = form.grade.data,
-            course.stream = form.stream.data,
-            course.college = form.college.data
+            course.student_id = form.student_id.data
+            course.grade = form.grade.data
+            course.stream_id = stream.id
+            course.stream = stream
+            course.college_id = college.id
+            course.college = college
+            course.university_id = university.id
+# add code to determine marksheet form student id
 # add code to determine college, university and stream ids from college and stream
 # add code to determine result: pass or fail
             db.session.commit()
             flash('Course updated')
             return redirect(url_for('courses'))
         form.name.data = course.name
+        form.student_id.data = course.student_id
         form.grade.data = course.grade
-        form.stream.data = course.stream
-        form.college.data = course.college
+        form.stream.data = course.stream.name
+        form.college.data = course.college.name
         return render_template('edit/edit_course.html', form=form, course_id=course_id)
     flash(f'Course with id {course_id} does not exit')
     return redirect(url_for('courses'))
@@ -259,18 +303,18 @@ def delete_course(course_id):
     return redirect(url_for('courses'))
 
 
-# *********************************************************** MarkSheets ****************************************************************
-@app.route('/marksheets')
-def marksheets():
-    marksheets = models.Marksheet.query.all()
-    return render_template('marksheets.html', marksheets=marksheets)
+# # *********************************************************** MarkSheets ****************************************************************
+# @app.route('/marksheets')
+# def marksheets():
+#     marksheets = models.Marksheet.query.all()
+#     return render_template('marksheets.html', marksheets=marksheets)
 
 
-# add code to create a marksheet
+# # add code to create a marksheet
 
 
 # *********************************************************** Students ****************************************************************
-@app.route('/')
+
 @app.route('/students')
 def students():
     students = models.Student.query.all()
@@ -281,14 +325,20 @@ def students():
 def addstudent():
     form = forms.AddStudentForm()
     if form.validate_on_submit():
+        stream = db.session.query(models.Stream).filter(models.Stream.name == form.stream.data)[0]
+        college = db.session.query(models.College).filter(models.College.name == form.college.data)[0]
+        university = db.session.query(models.University).filter(models.University.name == form.university.data)[0]
         student = models.Student(name=form.name.data, 
                                 surname=form.surname.data,
                                 address=form.address.data,
                                 phone_no=form.phone_no.data,
                                 std_code=form.std_code.data,
-                                stream=form.stream.data,
-                                college=form.college.data,
-                                university=form.university.data,
+                                stream_id = stream.id,
+                                stream = stream,
+                                college_id = college.id,
+                                college = college,
+                                university_id = university.id,
+                                university = university
                                 )
 # add code to determine college, university and stream ids
         db.session.add(student)
@@ -305,25 +355,32 @@ def edit_student(student_id):
     print(student)
     if student:
         if form.validate_on_submit():
+            stream = db.session.query(models.Stream).filter(models.Stream.name == form.stream.data)[0]
+            college = db.session.query(models.College).filter(models.College.name == form.college.data)[0]
+            university = db.session.query(models.University).filter(models.University.name == form.university.data)[0]
             student.name = form.name.data
             student.surname = form.surname.data
-            student.address = form. address.data
-            student.stream = form.stream.data
+            student.address = form.address.data
+            student.stream_id = stream.id
+            student.stream = stream
+            student.college_id = college.id
+            student.college = college
+            student.university_id = university.id
+            student.university = university
             student.phone_n = form.phone_no.data
             student.std_code = form.std_code.data
-            student.college = form.college.data
-            student.university = form.university.data
+# add code to determine college, university and stream ids
             db.session.commit()
             flash('Student updated')
             return redirect(url_for('students'))
         form.name.data = student.name
         form.surname.data = student.surname
-        form.address.data = student.address
-        form.stream.data = student.stream
+        form.address.data = student.address       
         form.phone_no.data = student.phone_no
         form.std_code.data = student.std_code
-        form.college.data = student.college
-        form.university.data = student.university
+        form.stream.data = student.stream.name
+        form.college.data = student.college.name
+        form.university.data = student.university.name
         return render_template('edit/edit_student.html', form=form, student_id=student_id)
     flash(f'Student with id {student_id} does not exit')
     return redirect(url_for('students'))
