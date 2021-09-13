@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container-fluid">
+  <form action="{{ url_for('addstream') }}" method="post">
+    {{ form.csrf_token }}
+    <div class="row">
+        <div class="col"> 
+          <h3>Add Stream</h3>
+        </div>
+        <div class="col">
+          {{ form.submit(class="btn btn-primary") }}
+          <a href="{{ url_for('streams') }}" class="btn btn-danger">Cancel</a>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col">
+            <h5> Name </h5>
+            {{ form.name(class="form-control") }}
+          </div>
+          <div class="col">
+            <h5> College </h5>
+            {{ form.college(class="form-control") }}
+          </div>
+      </div>
+  </form>
+</div>
+{% endblock %}
