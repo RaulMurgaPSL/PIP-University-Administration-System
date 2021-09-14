@@ -303,14 +303,11 @@ def delete_course(course_id):
     return redirect(url_for('courses'))
 
 
-# # *********************************************************** MarkSheets ****************************************************************
-# @app.route('/marksheets')
-# def marksheets():
-#     marksheets = models.Marksheet.query.all()
-#     return render_template('marksheets.html', marksheets=marksheets)
-
-
-# # add code to create a marksheet
+# *********************************************************** MarkSheets ****************************************************************
+@app.route('/marksheets')
+def marksheets():
+    marksheets = models.Marksheet.query.all()
+    return render_template('marksheets.html', marksheets=marksheets)
 
 
 # *********************************************************** Students ****************************************************************

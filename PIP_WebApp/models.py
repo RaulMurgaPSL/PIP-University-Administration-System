@@ -69,22 +69,26 @@ class Course(db.Model):
     stream = db.relationship("Stream", back_populates='courses')
     university_id = db.Column(db.Integer,  db.ForeignKey("university.id"))# many2one
     student_id = db.Column(db.Integer, db.ForeignKey("student.id"))# many2one
-#    marksheet_id = db.Column(db.Integer, db.ForeignKey("marksheet.id"))# one2one
+    student = db.relationship("Student", back_populates='courses')
+    marksheet_id = db.Column(db.Integer,  db.ForeignKey("marksheet.id"))# many2one
+    marksheet = db.relationship("Marksheet", back_populates="courses")
 
     def __repr__(self):
         return f'id = {self.id}: {self.name}, {self.created_at}'
 
 
-# class Marksheet(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     created_at = db.Column(db.Date, nullable = False, default=datetime.utcnow())
-#     gpa = db.Column(db.Float)
-# # relationships
-#     courses = db.relationship('Course', backref='marksheet', lazy = 'dynamic', foreign_keys = 'course.marksheet_id')# one2many
-#     student_id = db.Column(db.Integer, db.ForeignKey("student.id")) # one2one
+class Marksheet(db.Model):
+    __tablename__ = 'marksheet'
+    id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.Date, nullable = False, default=datetime.utcnow())
+    gpa = db.Column(db.Float)
+    # relationships
+    courses = db.relationship('Course', back_populates='marksheet')# one2many
+    student_id = db.Column(db.Integer, db.ForeignKey("student.id")) # one2one
+    student = db.relationship("Student", back_populates='marksheets')
 
-#     def __repr__(self):
-#         return f'id = {self.id}: {self.student_id}, {self.created_at}'
+    def __repr__(self):
+        return f'id = {self.id}: {self.student_id}, {self.created_at}'
 
 
 class Student(db.Model):
@@ -103,8 +107,8 @@ class Student(db.Model):
     college = db.relationship("College", back_populates='students')
     stream_id = db.Column(db.Integer, db.ForeignKey("stream.id"))# many2one
     stream = db.relationship("Stream", back_populates='students')
-#    marksheet_id = db.Column(db.Integer, db.ForeignKey("marksheet.id")) # one2one
-#    courses = db.relationship('Course', backref='student', lazy = 'dynamic', foreign_keys = 'course.student_id')# one2many
+    courses = db.relationship('Course', back_populates='student')# one2many
+    marksheets = db.relationship('Marksheet', back_populates='student')# one2many
 
     def __repr__(self):
         return f'id = {self.id}: {self.name} {self.surname}, {self.created_at}'
