@@ -231,9 +231,13 @@ def addcourse():
         stream = db.session.query(models.Stream).filter(
             models.Stream.name == form.stream.data and models.Stream.College_id==college_id)[0]
         stream_id = stream.id
+        grade = form.grade.data
+        if float(grade) > 40: result = 'PASS'
+        else: result = 'FAIL'
         course = models.Course(name = form.name.data,
                             student_id = form.student_id.data,
-                            grade = form.grade.data,
+                            grade = grade,
+                            result = result,
                             university_id=university_id,
                             college=college,
                             college_id=college_id,
@@ -257,15 +261,24 @@ def edit_course(course_id):
     print(course)
     if course:
         if form.validate_on_submit():
-            college = db.session.query(models.College).filter(models.College.name == form.college.data)[0]
+            college = db.session.query(models.College).filter(
+                models.College.name == form.college.data)[0]
             college_id = college.id
-            university_id = db.session.query(models.College).filter(models.College.id == college_id)[0].university_id
-            university = db.session.query(models.University).filter(models.University.id == university_id)[0]
+            university_id = db.session.query(models.College).filter(
+                models.College.id == college_id)[0].university_id
+            university = db.session.query(models.University).filter(
+                models.University.id == university_id)[0]
             stream = db.session.query(models.Stream).filter(
                 models.Stream.name == form.stream.data and models.Stream.College_id==college_id)[0]
+
+            grade = form.grade.data
+            if float(grade) > 40: result = 'PASS'
+            else: result = 'FAIL'
+
             course.name = form.name.data
             course.student_id = form.student_id.data
             course.grade = form.grade.data
+            course.result = result
             course.stream_id = stream.id
             course.stream = stream
             course.college_id = college.id
@@ -304,18 +317,46 @@ def delete_course(course_id):
 
 
 # *********************************************************** MarkSheets ****************************************************************
-@app.route('/marksheets', methods=['GET', 'POST'])
-def marksheets():
-    #marksheets = models.Marksheet.query.all()
-    form = forms.RequestMarksheetForm()
-    if form.validate_on_submit():
-        marksheet=models.Marksheet(student_id = form.student_id.data)
+# @app.route('/marksheets', methods=['GET', 'POST'])
+# def marksheets():
+#     #marksheets = models.Marksheet.query.all()
+#     form = forms.RequestMarksheetForm()
+#     if form.validate_on_submit():
+#         marksheet=models.Marksheet(student_id = form.student_id.data)
+#         db.session.add(marksheet)
+#         db.session.commit()
+#         flash('Marksheet requested')
+
+#     return render_template('marksheets.html', form = form)
+
+@app.route('/marksheet/<int:student_id>', methods=['POST','GET'])
+def marksheet(student_id):
+    courses = models.Course.query.filter_by(student_id = student_id)
+    print(courses)
+    if courses.first() == 0:
+        flash(f'The Student with ID {student_id} has no courses to show.')
+        return redirect(url_for('students'))
+    else:
+        gpa = db.session.query(
+            db.func.avg(
+                models.Course.grade).label('average')).filter(
+                models.Course.student_id==student_id)[0][0]
+        stream = models.Student.query.filter_by(id=student_id)[0].stream
+        university = models.Student.query.filter_by(id=student_id)[0].university
+        college = models.Student.query.filter_by(id=student_id)[0].college
+        marksheet = models.Marksheet(student_id = student_id,
+                                gpa = gpa)
         db.session.add(marksheet)
         db.session.commit()
-        flash('Marksheet requested')
 
-    return render_template('marksheets.html', form = form)
-
+    return render_template('marksheet.html',
+                        courses=courses,
+                        id=marksheet.id,
+                        student_id=student_id,
+                        gpa=gpa,
+                        stream=stream,
+                        university=university,
+                        college=college)
 
 # *********************************************************** Students ****************************************************************
 
