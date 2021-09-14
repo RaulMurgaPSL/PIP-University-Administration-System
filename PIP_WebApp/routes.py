@@ -304,10 +304,17 @@ def delete_course(course_id):
 
 
 # *********************************************************** MarkSheets ****************************************************************
-@app.route('/marksheets')
+@app.route('/marksheets', methods=['GET', 'POST'])
 def marksheets():
-    marksheets = models.Marksheet.query.all()
-    return render_template('marksheets.html', marksheets=marksheets)
+    #marksheets = models.Marksheet.query.all()
+    form = forms.RequestMarksheetForm()
+    if form.validate_on_submit():
+        marksheet=models.Marksheet(student_id = form.student_id.data)
+        db.session.add(marksheet)
+        db.session.commit()
+        flash('Marksheet requested')
+
+    return render_template('marksheets.html', form = form)
 
 
 # *********************************************************** Students ****************************************************************

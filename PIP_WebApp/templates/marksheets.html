@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
 {% block main %}
-  {% for marksheet in marksheets %}
-    <div class="card">
-      <div class="card-body">
-        <h3>{{ marksheet.student_id} {{marksheet.id}}</h3>
-        <h5> GPA: {{ marksheet.gpa}}</h5>
-        <p>Added on {{ marksheet.created_at }}</p>
+<div class="container-fluid">
+  <form action="{{ url_for('marksheets') }}" method="post">
+    {{ form.csrf_token }}
+    <div class="row">
+      <h3>Request Marksheet</h3>
+      <div class="col">
+        {{ form.submit(class="btn btn-primary") }}
       </div>
     </div>
-  {% endfor %}
+    <div class="row">
+      <div class="col">
+        <h5> Student ID </h5>
+        {{ form.student_id(class="form-control") }}
+      </div>
+    </div>
+  </form>
+</div>  
+
 {% endblock %}

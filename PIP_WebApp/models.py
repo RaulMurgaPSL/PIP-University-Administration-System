@@ -11,7 +11,7 @@ class University(db.Model):
     acronym = db.Column(db.String(255))
     address = db.Column(db.String(255))
     # relationships 
-    colleges = db.relationship('College', back_populates='university')# one2many
+    colleges = db.relationship('College', back_populates='university', cascade="all,delete")# one2many
     students = db.relationship('Student', back_populates='university')# one2many
     streams = db.relationship('Stream', back_populates='university')# one2many
 
