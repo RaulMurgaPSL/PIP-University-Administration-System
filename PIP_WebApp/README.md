@@ -17,3 +17,5 @@
 ## [forms](formes.py) contains the connection layouts for user's inputs with the different parts of the app.
 
 ## [Test](test.db) holds the database structures and values. 
+
+## [BootStrap Web Design Resources and Examples](https://getbootstrap.com/docs/4.0/components/alerts/)
