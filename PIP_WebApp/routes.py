@@ -339,11 +339,13 @@ def marksheet(student_id):
         marksheet = models.Marksheet.query.filter_by(student_id = student_id).all()
         if marksheet.__eq__([]):
             marksheet = models.Marksheet(student_id = student_id, gpa=gpa, courses = courses.all())
+            student.marksheet = [marksheet]
             db.session.add(marksheet)
         else:
             marksheet = marksheet[0]
             marksheet.gpa = gpa
             marksheet.courses = courses.all()
+            student.marksheet = [marksheet]
         db.session.commit()
 
     return render_template('marksheet.html',
