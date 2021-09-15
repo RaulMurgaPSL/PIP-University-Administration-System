@@ -6,24 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Students</title>
   </head>
   <body>
     <div class="container-fluid">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <ul class="navbar-nav">
-          <li class="nav-item"><a href="{{ url_for('universities') }}" class="nav-link">Universities</a></li>
-          <li class="nav-item"><a href="{{ url_for('adduniversity') }}" class="nav-link">Add New University</a></li>
-          <li class="nav-item"><a href="{{ url_for('colleges') }}" class="nav-link">Colleges</a></li>
-          <li class="nav-item"><a href="{{ url_for('addcollege') }}" class="nav-link">Add New College</a></li>
-          <li class="nav-item"><a href="{{ url_for('streams') }}" class="nav-link">Streams</a></li>
-          <li class="nav-item"><a href="{{ url_for('addstream') }}" class="nav-link">Add New Stream</a></li>
-          <li class="nav-item"><a href="{{ url_for('students') }}" class="nav-link">Students</a></li>
-          <li class="nav-item"><a href="{{ url_for('addstudent') }}" class="nav-link">Add New Student</a></li>
-          <li class="nav-item"><a href="{{ url_for('courses') }}" class="nav-link">Courses</a></li>
-          <li class="nav-item"><a href="{{ url_for('addcourse') }}" class="nav-link">Add New Course</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Database Records
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('universities') }}">Universities</a>
+              <a class="dropdown-item" href="{{ url_for('colleges') }}">Colleges</a>
+              <a class="dropdown-item" href="{{ url_for('streams') }}">Streams</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ url_for('students') }}">Students</a>
+              <a class="dropdown-item" href="{{ url_for('courses') }}">Courses</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Add Records
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('adduniversity') }}">Add New Universities</a>
+              <a class="dropdown-item" href="{{ url_for('addcollege') }}">Add New Colleges</a>
+              <a class="dropdown-item" href="{{ url_for('addstream') }}">Add New Streams</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ url_for('addstudent') }}">Add New Students</a>
+              <a class="dropdown-item" href="{{ url_for('addcourse') }}">Add New Courses</a>
+            </div>
+          </li>
         </ul>
       </nav>
       <br>

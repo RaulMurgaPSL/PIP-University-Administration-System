@@ -5,9 +5,12 @@
   <form action="{{ url_for('adduniversity') }}" method="post">
     {{ form.csrf_token }}
     <div class="row">
-      <h3>Add University</h3>
+      <div class="col"> 
+        <h3>Add University</h3>
+      </div>
       <div class="col">
         {{ form.submit(class="btn btn-primary") }}
+        <a href="{{ url_for('universities') }}" class="btn btn-danger">Cancel</a>
       </div>
     </div>
     <div class="row">
