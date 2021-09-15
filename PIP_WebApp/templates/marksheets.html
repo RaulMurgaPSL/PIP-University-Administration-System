@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container-fluid">
+  <form action="{{ url_for('marksheets') }}" method="post">
+    {{ form.csrf_token }}
+    <div class="row">
+      <h3>Request Marksheet</h3>
+      <div class="col">
+        {{ form.submit(class="btn btn-primary") }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5> Student ID </h5>
+        {{ form.student_id(class="form-control") }}
+      </div>
+    </div>
+  </form>
+</div>  
+
+{% endblock %}
