@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block main %}
+<div class="card">
+  <div class="card-body">
     <div class="row">
     <div class="col">
       <h1>Marksheet {{id}}: {{ student_id }}</h1>
@@ -10,8 +12,11 @@
     </div>
     </div>
     <div class="row">
-    <h4>{{ university.name }}: {{ college.name }}</h4>
+    <h4>{{ university.name }}</h4>
     </div>
+    <div class="row">
+      <h4>{{ college.name }}</h4>
+      </div>
     <div class="row">
     <h5>{{ stream.name }} | GPA: {{ gpa }}</h5>
     </div>
@@ -25,5 +30,6 @@
       </div>
     </div>
     {% endfor %}
-
+  </div>
+</div>
 {% endblock %}
