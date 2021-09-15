@@ -49,8 +49,3 @@ class AddStudentForm(FlaskForm):
     college = StringField('College', validators=[DataRequired()])
     university = StringField('University', validators=[DataRequired()])
     submit = SubmitField('Submit')
-
-
-class RequestMarksheetForm(FlaskForm):
-    student_id = StringField('StudentID', validators=[DataRequired()])
-    submit = SubmitField('Submit')
