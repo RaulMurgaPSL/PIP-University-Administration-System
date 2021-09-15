@@ -4,9 +4,11 @@ from flask import render_template, url_for, flash, redirect
 import models
 import forms
 
-
-# *********************************************************** Universities ****************************************************************
 @app.route('/')
+def base():
+    return render_template('base.html')
+# *********************************************************** Universities ****************************************************************
+
 @app.route('/universities')
 def universities():
     universities = models.University.query.all()
