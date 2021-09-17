@@ -1,0 +1,4 @@
+id,created_at,name,surname,address,phone_no,std_code,university_id,college,stream,college_id,stream_id
+3,2021-09-13,Raul Armando,Murga Garrido,Cerro Culiacán 127,5528585846,+52,1,,,1,2
+4,2021-09-13,Naemi Katharina,Stolte,Cerro Culiacán 127,1791006008,+49,2,,,3,3
+5,2021-09-14,Antonella,Lojo ,Purveyor 54,1122973021,+549,3,,,4,4
