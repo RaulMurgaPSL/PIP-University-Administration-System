@@ -444,3 +444,41 @@ def delete_student(student_id):
         return render_template('delete/delete_student.html', form=form, student_id=student_id, name=student.name, surname=student.surname)
     flash(f'Student with id {student_id} does not exit')
     return redirect(url_for('students'))
+
+
+# *********************************************************** Search ****************************************************************
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = forms.SearchForm()
+    return render_template('search.html', form=form)
+
+
+# *********************************************************** Counts ****************************************************************
+@app.route('/counts_uni/<int:university_id>', methods=['GET', 'POST'])
+def counts_uni(university_id):
+    university = models.University.query.get(university_id)
+    colleges = models.College.query.filter_by(university_id=university_id).count()
+    streams = models.Stream.query.filter_by(university_id=university_id).count()
+    students = models.Student.query.filter_by(university_id=university_id).count()
+    courses = models.Course.query.filter_by(university_id=university_id).count()
+
+    return render_template('counts/counts_uni.html', 
+                            university=university,
+                            colleges = colleges,
+                            streams = streams, 
+                            students = students,
+                            courses = courses)
+
+
+@app.route('/counts_col/<int:college_id>', methods=['GET', 'POST'])
+def counts_col(college_id):
+    college = models.College.query.get(college_id)
+    streams = models.Stream.query.filter_by(college_id=college_id).count()
+    students = models.Student.query.filter_by(college_id=college_id).count()
+    courses = models.Course.query.filter_by(college_id=college_id).count()
+
+    return render_template('counts/counts_col.html', 
+                            college=college,
+                            streams = streams, 
+                            students = students,
+                            courses = courses)

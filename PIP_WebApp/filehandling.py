@@ -16,8 +16,7 @@ def db2csv():
         )
         cursor = conn.cursor()
         cursor.execute(f"select * from {table};")
-        with open(f"db_filehandling/CSV/{table}_test.csv", "w", newline='') as csv_file:  # Python 3 version    
-        #with open("out.csv", "wb") as csv_file:              # Python 2 version
+        with open(f"db_filehandling/CSV/{table}_test.csv", "w", newline='') as csv_file:
             csv_writer = csv.writer(csv_file)
             csv_writer.writerow([i[0] for i in cursor.description]) # write headers
             csv_writer.writerows(cursor)
@@ -32,11 +31,7 @@ def csv2xlsx():
         table.to_excel(writer, sheet_name=file.split('_')[0])
     writer.save()
 
-    
-
-
 # *********************************************************** RUN ****************************************************************
-
 if __name__ == '__main__':
     db2csv()
     csv2xlsx()

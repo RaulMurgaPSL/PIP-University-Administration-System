@@ -49,3 +49,10 @@ class AddStudentForm(FlaskForm):
     college = StringField('College', validators=[DataRequired()])
     university = StringField('University', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class SearchForm(FlaskForm):
+    search_target = StringField('What', validators=[DataRequired()])
+    search_reference = StringField('How', validators=[DataRequired()])
+    search_input = StringField('Input', validators=[DataRequired()])
+    submit = SubmitField('Submit')

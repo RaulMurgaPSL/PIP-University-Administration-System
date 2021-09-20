@@ -2,5 +2,48 @@
 
 {% block main %}
 
+<body>
+    <div class="container-fluid">
+    <form action="{{ url_for('search') }}" method="post">
+        {{ form.csrf_token }}
+      <h1 class="lead">Looking for something? Try searching here!</h1>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              What are you looking for?
+            </a>
+            <div id="search_target" class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="" value=Universities>Universities</a>
+              <a class="dropdown-item" href="">Colleges</a>
+              <a class="dropdown-item" href="">Streams</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="">Students</a>
+              <a class="dropdown-item" href="">Courses</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Which Reference Would You Like to Search Through?
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="">Universities</a>
+              <a class="dropdown-item" href="">Colleges</a>
+              <a class="dropdown-item" href="">Streams</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="">Students</a>
+              <a class="dropdown-item" href="">Courses</a>
+            </div>
+          </li>
+          <li>
+            <div class="col">
+                <h5> Query </h5>
+                {{ form.search_input(class="form-control") }}
+            </div>
+        </li>
+        </ul>
+      </nav>
+    </div>
+  </body>
 
 {% endblock %}
