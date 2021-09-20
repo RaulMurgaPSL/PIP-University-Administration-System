@@ -482,3 +482,18 @@ def counts_col(college_id):
                             streams = streams, 
                             students = students,
                             courses = courses)
+
+
+@app.route('/counts_stm/<int:stream_id>', methods=['GET', 'POST'])
+def counts_stm(stream_id):
+    stream = models.Stream.query.get(stream_id)
+    college = stream.college
+    students = models.Student.query.filter_by(stream_id=stream_id).count()
+    courses = models.Course.query.filter_by(stream_id=stream_id).count()
+
+    return render_template('counts/counts_stm.html', 
+                            college=college,
+                            stream = stream, 
+                            students = students,
+                            courses = courses)
+

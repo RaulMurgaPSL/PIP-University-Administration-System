@@ -10,6 +10,7 @@
         <p>Added on {{ stream.created_at }}</p>
         <a href="{{ url_for('edit_stream', stream_id=stream.id) }}" class="btn btn-primary">Edit</a>
         <a href="{{ url_for('delete_stream', stream_id=stream.id) }}" class="btn btn-danger">Delete</a>
+        <a href="{{ url_for('counts_stm', stream_id=stream.id) }}" class="btn btn-secondary">Numbers</a>
       </div>
     </div>
   {% endfor %}

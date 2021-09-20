@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+    <div class="col">
+      <h1>{{stream.name}}: {{ stream.id }}</h1>
+      <h2>{{ college.name }}</h2>
+    </div>
+    <div class="col">
+      <a href="{{ url_for('streams')}}" class="btn btn-primary">Go Back</a>
+    </div>
+    </div>
+    <div class="row">
+      <h4>Courses Graded: {{ courses }}</h4>
+    </div>
+    <div class="row">
+        <h4>Students: {{ students }}</h4>
+    </div>
+  </div>
+</div>
+{% endblock %}
