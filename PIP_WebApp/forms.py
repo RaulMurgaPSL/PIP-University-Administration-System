@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 
 
@@ -52,7 +52,15 @@ class AddStudentForm(FlaskForm):
 
 
 class SearchForm(FlaskForm):
-    search_target = StringField('What', validators=[DataRequired()])
-    search_reference = StringField('How', validators=[DataRequired()])
+    search_target = SelectField('Target', choices=['University',
+                                                    'College',
+                                                    'Stream',
+                                                    'Student',
+                                                    'Course'], validators=[DataRequired()])
+    search_filter = SelectField('Filter', choices=['University',
+                                                    'College',
+                                                    'Stream',
+                                                    'Student',
+                                                    'Course'], validators=[DataRequired()])
     search_input = StringField('Input', validators=[DataRequired()])
     submit = SubmitField('Submit')

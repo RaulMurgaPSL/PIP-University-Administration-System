@@ -445,13 +445,10 @@ def delete_student(student_id):
 def search():
     form = forms.SearchForm()
     if form.validate_on_submit():
-        pass
+        print(form.search_target.data, form.search_filter.data, form.search_input.data)
     else:
         print('error: search')
     return render_template('search.html', form=form)
-# @app.route('/searched', methods=['GET', 'POST'])
-# def searched():
-#     return render_template('searched.html')
 
 # *********************************************************** Counts ****************************************************************
 @app.route('/counts_uni/<int:university_id>', methods=['GET', 'POST'])
