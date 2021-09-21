@@ -12,8 +12,8 @@ class University(db.Model):
     address = db.Column(db.String(255))
     # relationships 
     colleges = db.relationship('College', back_populates='university', cascade="all,delete")# one2many
-    students = db.relationship('Student', back_populates='university')# one2many
-    streams = db.relationship('Stream', back_populates='university')# one2many
+    students = db.relationship('Student', back_populates='university', cascade="all,delete")# one2many
+    streams = db.relationship('Stream', back_populates='university', cascade="all,delete")# one2many
 
     def __repr__(self):
         return f'id = {self.id}: {self.name}, {self.created_at}'
@@ -30,9 +30,9 @@ class College(db.Model):
     # relationships
     university_id = db.Column(db.Integer,  db.ForeignKey("university.id"))# many2one
     university = db.relationship("University", back_populates="colleges")
-    students = db.relationship('Student', back_populates='college')
-    streams = db.relationship('Stream', back_populates='college')
-    courses = db.relationship('Course', back_populates='college')
+    students = db.relationship('Student', back_populates='college', cascade="all,delete")
+    streams = db.relationship('Stream', back_populates='college', cascade="all,delete")
+    courses = db.relationship('Course', back_populates='college', cascade="all,delete")
     
     def __repr__(self):
         return f'id = {self.id}: {self.name}, {self.created_at}'
@@ -48,8 +48,8 @@ class Stream(db.Model):
     college = db.relationship("College", back_populates="streams")
     university_id = db.Column(db.Integer, db.ForeignKey("university.id"))# many2one
     university = db.relationship("University", back_populates="streams")
-    courses = db.relationship('Course', back_populates='stream')# one2many
-    students = db.relationship('Student', back_populates='stream')# one2many
+    courses = db.relationship('Course', back_populates='stream', cascade="all,delete")# one2many
+    students = db.relationship('Student', back_populates='stream', cascade="all,delete")# one2many
 
     def __repr__(self):
         return f'id = {self.id}: {self.name}, {self.created_at}'
@@ -83,7 +83,7 @@ class Marksheet(db.Model):
     created_at = db.Column(db.Date, nullable = False, default=datetime.utcnow())
     gpa = db.Column(db.Float)
     # relationships
-    courses = db.relationship('Course', back_populates='marksheet')# one2many
+    courses = db.relationship('Course', back_populates='marksheet', cascade="all,delete")# one2many
     student_id = db.Column(db.Integer, db.ForeignKey("student.id")) # one2one
     student = db.relationship("Student", back_populates='marksheets')
 
@@ -107,8 +107,8 @@ class Student(db.Model):
     college = db.relationship("College", back_populates='students')
     stream_id = db.Column(db.Integer, db.ForeignKey("stream.id"))# many2one
     stream = db.relationship("Stream", back_populates='students')
-    courses = db.relationship('Course', back_populates='student')# one2many
-    marksheets = db.relationship('Marksheet', back_populates='student')# one2many
+    courses = db.relationship('Course', back_populates='student', cascade="all,delete")# one2many
+    marksheets = db.relationship('Marksheet', back_populates='student', cascade="all,delete")# one2many
 
     def __repr__(self):
         return f'id = {self.id}: {self.name} {self.surname}, {self.created_at}'

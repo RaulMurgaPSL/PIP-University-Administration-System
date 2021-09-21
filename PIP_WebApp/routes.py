@@ -2,6 +2,7 @@ from app import app, db
 from flask import render_template, url_for, flash, redirect
 
 import models
+from models import *
 import forms
 
 @app.route('/')
@@ -446,8 +447,34 @@ def search():
     form = forms.SearchForm()
     if form.validate_on_submit():
         print(form.search_target.data, form.search_filter.data, form.search_input.data)
-    else:
-        print('error: search')
+        target = eval(form.search_target.data)
+        # target_ = form.search_target.data
+        filter = eval(form.search_filter.data)
+        filter_ = form.search_filter.data
+        input = form.search_input.data
+
+        joined = db.session.query(target, filter).filter(
+                                                filter.id == getattr(target, '_'.join(
+                                                    [filter_, 'id']
+                                                ).lower())
+        )           
+        
+        found = []
+        for t, f in joined:
+            if input in ''.join([str(i) for _, i in f.__dict__.items()]):
+                found.append((t,f))
+        print(found)
+        
+        if found.__eq__([]):
+            flash('Your search has no results')
+            return redirect(url_for('search'))
+
+        else:
+            return render_template('searched.html', found=found)
+
+    # else:
+    #     flash('There was an error with your search')
+    #     return redirect(url_for('base'))
     return render_template('search.html', form=form)
 
 # *********************************************************** Counts ****************************************************************

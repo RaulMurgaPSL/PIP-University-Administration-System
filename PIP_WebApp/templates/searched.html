@@ -1,4 +1,17 @@
 
 {% extends "base.html" %}
 {% block main %}
+<div class="col">
+    <a href="{{ url_for('search')}}" class="btn btn-primary">Go Back</a>
+</div>
+{% for item, item_ in found %}
+<div class="card">
+  <div class="card-body">
+    <h3>{{item.name}} {{item.id}}</h3>
+    <h4>{{item_.name}} {{item_.id}}</h4>
+    <h5>{{item.created_at}}</h5>
+    <h6>{{item_.created_at}}</h6>
+  </div>
+</div>
+{% endfor %}
 {% endblock %}
