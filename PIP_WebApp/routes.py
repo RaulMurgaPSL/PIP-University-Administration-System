@@ -458,7 +458,7 @@ def search():
                                                     [filter_, 'id']
                                                 ).lower())
         )           
-        
+        # Add code to handle errors and exceptions
         found = []
         for t, f in joined:
             if input in ''.join([str(i) for _, i in f.__dict__.items()]):
@@ -471,10 +471,6 @@ def search():
 
         else:
             return render_template('searched.html', found=found)
-
-    # else:
-    #     flash('There was an error with your search')
-    #     return redirect(url_for('base'))
     return render_template('search.html', form=form)
 
 # *********************************************************** Counts ****************************************************************

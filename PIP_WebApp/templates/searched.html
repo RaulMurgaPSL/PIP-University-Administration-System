@@ -6,12 +6,26 @@
 </div>
 {% for item, item_ in found %}
 <div class="card">
-  <div class="card-body">
-    <h3>{{item.name}} {{item.id}}</h3>
-    <h4>{{item_.name}} {{item_.id}}</h4>
-    <h5>{{item.created_at}}</h5>
-    <h6>{{item_.created_at}}</h6>
-  </div>
+    <div class="card-body">
+        <div class="row">
+            <div class='col'>
+                <h4>Target</h4>
+                {% for key, feature in item.__dict__.items() %}
+                    {% if key != '_sa_instance_state' %}
+                        <div class="row"><h7>{{key}}: {{feature}}</h7></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class='col'>
+                <h4>Reference</h4>
+                {% for key, feature in item_.__dict__.items() %}
+                    {% if key != '_sa_instance_state' %}
+                        <div class="row"><h7>{{key}}: {{feature}}</h7></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endfor %}
 {% endblock %}
