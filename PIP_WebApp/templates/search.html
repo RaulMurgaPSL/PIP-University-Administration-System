@@ -14,25 +14,27 @@
               What are you looking for?
             </a>
             <div id="search_target" class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="" value=Universities>Universities</a>
-              <a class="dropdown-item" href="">Colleges</a>
-              <a class="dropdown-item" href="">Streams</a>
+              <a class="dropdown-item" value=University>Universities</a>
+              <a class="dropdown-item" value=College>Colleges</a>
+              <a class="dropdown-item" value=Stream>Streams</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="">Students</a>
-              <a class="dropdown-item" href="">Courses</a>
+              <a class="dropdown-item" value=Student>Students</a>
+              <a class="dropdown-item" value=Course>Courses</a>
             </div>
           </li>
+
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Which Reference Would You Like to Search Through?
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="">Universities</a>
-              <a class="dropdown-item" href="">Colleges</a>
-              <a class="dropdown-item" href="">Streams</a>
+            <div id="search_reference" class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" value=university>Universities</a>
+              <a class="dropdown-item" value=college>Colleges</a>
+              <a class="dropdown-item" value=stream>Streams</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="">Students</a>
-              <a class="dropdown-item" href="">Courses</a>
+              <a class="dropdown-item" value=student>Students</a>
+              <a class="dropdown-item" value=course>Courses</a>
             </div>
           </li>
           <li>
@@ -40,6 +42,12 @@
                 <h5> Query </h5>
                 {{ form.search_input(class="form-control") }}
             </div>
+            <li>
+            <div class="col">
+              {{ form.submit(class="btn btn-primary") }}
+              <a href="{{ url_for('base') }}" class="btn btn-danger">Cancel</a>
+            </div>
+            </li>
         </li>
         </ul>
       </nav>

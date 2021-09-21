@@ -246,9 +246,6 @@ def addcourse():
                             stream=stream,
                             stream_id=stream_id
         )
-# add code to determine marksheet form student id                            )
-# add code to determine college, university and stream ids from college and stream
-# add code to determine result: pass or fail
         db.session.add(course)
         db.session.commit()
         flash('Course added')
@@ -286,9 +283,6 @@ def edit_course(course_id):
             course.college_id = college.id
             course.college = college
             course.university_id = university.id
-# add code to determine marksheet form student id
-# add code to determine college, university and stream ids from college and stream
-# add code to determine result: pass or fail
             db.session.commit()
             flash('Course updated')
             return redirect(url_for('courses'))
@@ -450,8 +444,14 @@ def delete_student(student_id):
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     form = forms.SearchForm()
+    if form.validate_on_submit():
+        pass
+    else:
+        print('error: search')
     return render_template('search.html', form=form)
-
+# @app.route('/searched', methods=['GET', 'POST'])
+# def searched():
+#     return render_template('searched.html')
 
 # *********************************************************** Counts ****************************************************************
 @app.route('/counts_uni/<int:university_id>', methods=['GET', 'POST'])
