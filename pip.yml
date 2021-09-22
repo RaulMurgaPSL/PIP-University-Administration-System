@@ -1,0 +1,4 @@
+name: learning_env
+channels:
+  - defaults
+prefix: C:\Users\admin\anaconda3\envs\learning_env\envs\learning_env
