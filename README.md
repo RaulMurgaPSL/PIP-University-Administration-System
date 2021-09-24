@@ -16,3 +16,8 @@
 ### more about SQLAlchemy with [Real Python GitHub](https://github.com/realpython/materials/tree/master/python-sqlite-sqlalchemy)
 ### about [GCP deployment for Flask Apps](https://www.youtube.com/watch?v=1hd05Ti79AM)
 
+## Docker: 
+## [PSL Fusion Course](https://ehec.fa.em2.oraclecloud.com/hcmUI/faces/FuseWelcome?_adf.ctrl-state=hm4yqnd1y_1&_adf.no-new-window-redirect=true&_afrLoop=8373842398717950&_afrWindowMode=2&_afrWindowId=obntqs4nr&_afrFS=16&_afrMT=screen&_afrMFW=1215&_afrMFH=649&_afrMFDW=1280&_afrMFDH=720&_afrMFC=8&_afrMFCI=0&_afrMFM=0&_afrMFR=144&_afrMFG=0&_afrMFS=0&_afrMFO=0)
+## [Docker + Flask](https://towardsdatascience.com/how-to-dockerize-an-existing-flask-application-115408463e1c)
+## [GCP](https://towardsdatascience.com/deploy-a-dockerized-flask-app-to-google-cloud-platform-71d91b39b25e)
+## [GCP](https://towardsdatascience.com/deploying-containers-with-docker-gcp-cloud-run-and-flask-restful-809e0ffa1f3)
