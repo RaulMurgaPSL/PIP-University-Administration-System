@@ -5,7 +5,6 @@ from inspect import isclass
 import pandas as pd
 import os
 
-# random line for Naemi
 # *********************************************************** CSV ****************************************************************
 def db2csv():
     tables = [x for x in dir(models) if isclass(getattr(models, x)) and x[0].isupper()]
