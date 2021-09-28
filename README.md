@@ -19,6 +19,9 @@
 ## Docker: 
 ## [PSL Fusion Course](https://ehec.fa.em2.oraclecloud.com/hcmUI/faces/FuseWelcome?_adf.ctrl-state=hm4yqnd1y_1&_adf.no-new-window-redirect=true&_afrLoop=8373842398717950&_afrWindowMode=2&_afrWindowId=obntqs4nr&_afrFS=16&_afrMT=screen&_afrMFW=1215&_afrMFH=649&_afrMFDW=1280&_afrMFDH=720&_afrMFC=8&_afrMFCI=0&_afrMFM=0&_afrMFR=144&_afrMFG=0&_afrMFS=0&_afrMFO=0) has a complete introduction about the fundamentals of Docker. 
 ## As a basis for Dockerfile and Docker-Compose, this article in _Medium_ helped perfectly: [Docker + Flask](https://towardsdatascience.com/how-to-dockerize-an-existing-flask-application-115408463e1c)
+
+## a basis on [loading directories to a Docker Image](https://towardsdatascience.com/how-to-mount-a-directory-inside-a-docker-container-4cee379c298b)
+## some input in [Pipenv and the importance on virtual environments](https://towardsdatascience.com/virtual-environments-for-data-science-running-python-and-jupyter-with-pipenv-c6cb6c44a405)
 ## I chose to use Google Cloud Platfrom as a Cloud service provider because they offer $ 300.00 US just as a start trial. 
 ## After enrolling to the trial subscription, they threw in another $ 100.00 US. 
 
