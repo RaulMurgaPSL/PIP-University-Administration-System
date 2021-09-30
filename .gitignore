@@ -1,2 +1,3 @@
-.ipynb_checkpoints
-./PPIP_WebApp/__pycache__
+.vscode
+./PIP_WebApp/__pycache__
+./PIP_WebApp/.vscode

@@ -8,8 +8,9 @@ import forms
 @app.route('/')
 def base():
     return render_template('base.html')
-# *********************************************************** Universities ****************************************************************
 
+
+# *********************************************************** Universities ****************************************************************
 @app.route('/universities')
 def universities():
     universities = models.University.query.all()
@@ -445,32 +446,38 @@ def delete_student(student_id):
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     form = forms.SearchForm()
-    if form.validate_on_submit():
-        print(form.search_target.data, form.search_filter.data, form.search_input.data)
-        target = eval(form.search_target.data)
-        # target_ = form.search_target.data
-        filter = eval(form.search_filter.data)
-        filter_ = form.search_filter.data
-        input = form.search_input.data
+    try:
+        if form.validate_on_submit():
+            print(form.search_target.data, form.search_filter.data, form.search_input.data)
+            target = eval(form.search_target.data)
+            # target_ = form.search_target.data
+            filter = eval(form.search_filter.data)
+            filter_ = form.search_filter.data
+            input = form.search_input.data
 
-        joined = db.session.query(target, filter).filter(
-                                                filter.id == getattr(target, '_'.join(
-                                                    [filter_, 'id']
-                                                ).lower())
-        )           
-        # Add code to handle errors and exceptions
-        found = []
-        for t, f in joined:
-            if input in ''.join([str(i) for _, i in f.__dict__.items()]):
-                found.append((t,f))
-        print(found)
-        
-        if found.__eq__([]):
-            flash('Your search has no results')
-            return redirect(url_for('search'))
+            joined = db.session.query(target, filter).filter(
+                                                    filter.id == getattr(target, '_'.join(
+                                                        [filter_, 'id']
+                                                    ).lower())
+            )           
+            # Add code to handle errors and exceptions
+            found = []
+            for t, f in joined:
+                if input in ''.join([str(i) for _, i in f.__dict__.items()]):
+                    found.append((t,f))
+            print(found)
+            
+            if found.__eq__([]):
+                flash('Your search has no results')
+                return redirect(url_for('search'))
 
-        else:
-            return render_template('searched.html', found=found)
+            else:
+                return render_template('searched.html', found=found)
+
+    except:
+        flash('Your search is wrongfully posited. Please, try again.')
+        flash('Try to search from particular [smaller] and reference from universal [bigger].')
+        flash('For instance, search for students (particular) filtering by College (universal).')
     return render_template('search.html', form=form)
 
 # *********************************************************** Counts ****************************************************************

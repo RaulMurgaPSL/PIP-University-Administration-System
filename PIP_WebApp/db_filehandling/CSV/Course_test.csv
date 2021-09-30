@@ -9,3 +9,4 @@ id,created_at,name,grade,result,college_id,stream_id,university_id,student_id,ma
 8,2021-09-14, Sprachphilosophie,95.0,PASS,3,3,2,4,4
 9,2021-09-21,Psicología del Género,100.0,PASS,4,4,3,5,5
 10,2021-09-25,Politikethnologie,100.0,PASS,3,3,2,4,4
+11,2021-09-30,Gobernanza de Datos,90.0,PASS,4,4,3,5,5
