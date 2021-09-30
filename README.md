@@ -26,3 +26,7 @@
 ## After enrolling to the trial subscription, they threw in another $ 100.00 US. 
 
 ## Therefore, I add this two _Towards Data Science_ articles about deploying dockerized flask apps into [GCP](https://towardsdatascience.com/deploy-a-dockerized-flask-app-to-google-cloud-platform-71d91b39b25e) & [GCP](https://towardsdatascience.com/deploying-containers-with-docker-gcp-cloud-run-and-flask-restful-809e0ffa1f3)
+
+## [Edward Kruger Repository on Deploying Flask Apps with GCP's Cloud Run](https://github.com/edkrueger/sars-fastapi)
+
+## [Abby Carey Repository as an introduction to Cloud Run](https://github.com/abbycar/python-tabs-vs-spaces-public/blob/main/app.py) with [video on PyCharm IDE and Cloud Code Infra](https://www.youtube.com/watch?v=1hd05Ti79AM)

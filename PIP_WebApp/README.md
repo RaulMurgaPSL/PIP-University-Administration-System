@@ -4,7 +4,7 @@
 
 ## Requirements:
 
-### Python 3.7+
+### Python 3.8+
 ### Flask 1.1.2
 ### SQLAlchemy 1.4.7
 
