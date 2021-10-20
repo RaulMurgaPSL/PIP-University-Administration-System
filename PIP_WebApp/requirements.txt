@@ -11,3 +11,5 @@ SQLAlchemy==1.3.17
 uvicorn
 xlrd
 XlsxWriter
+black
+pylint
