@@ -1,0 +1,13 @@
+name: Azure
+on: [push]
+jobs:
+  build:
+    runs-on:ubuntu-latest
+    steps:
+    - name: install
+    run: |
+      make install
+    - name: lint
+    run: |
+      make lint
+     - name: format
